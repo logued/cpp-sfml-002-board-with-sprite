@@ -2,22 +2,23 @@
 #include <vector>
 #include <iostream>
 
-// Note that SFML configuration in CMakeLists.txt must be correct and correspond
+// Note the SFML configuration in file CMakeLists.txt must be correct and correspond
 // to actual location of SFML folders on your laptop drive.
 
 /**
- * Draws a 10x10 board with alternating black and white squares
- * Creates a Sprite (image) that can be moved around the board
- * using arrow keys.
- *
+ * Demonstration of:
+ * Draw a 10x10 board with alternating black and white squares
+ * Creates a Sprite (image) that can be 'moved' around the board
+ * Read Events from the event queue of events such as key presses, mouse clicks ...
+ * Based on type of key-press, change location of the sprite and redraw the window.
  */
 using namespace sf;
 using namespace std;
+
 int main()
 {
     // For a 10x10 board, with each square 60pixels wide & high, we need a 600x600 window
     RenderWindow window(VideoMode(600, 600), "My Bug Project");  // window width and height in Pixels
-
 
     // vector to store all the squares of the board
     // the first 10 elements represent the first row, the next 10 represent the second row, etc.
@@ -36,7 +37,9 @@ int main()
             colourWhite=!colourWhite;   // negate (reverse) the colour
 
             square.setPosition(Vector2f(static_cast<float>(row)*60, static_cast<float>(col)*60 ));  // top left hand corner of square
-            // each iteration of the inner loop moves the col on by
+            // each iteration of the inner loop moves the col on by one
+            // an iteration of the outer loop moves down the rows  (top left square is at (0,0)
+            // the static cast converts integer to float
 
             squares.push_back(square);  // add the square to the vector containing all squares
         }
@@ -60,9 +63,9 @@ int main()
     // Capture matching events and react to them.
     while (window.isOpen())
     {
-        sf::Event event;    // an object used to store event details
+        sf::Event event;    // created an object to store details of one Event
 
-        // Poll the window event queue ( i.e. check for events )
+        // Poll the window event queue ( i.e. check for events that happen e.g. keystroke )
         // and if one has occurred, pollEvent will put the event details
         // into the Event object supplied.
         while (window.pollEvent(event))
@@ -132,7 +135,6 @@ int main()
                     reactToMouseClicks=false;
                 }
             }
-
         }
 
         window.clear(); // Essential to clear previous drawings
@@ -145,6 +147,5 @@ int main()
         window.draw(sprite);
         window.display();
     }
-
     return 0;
 }
