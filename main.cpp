@@ -70,7 +70,7 @@ int main()
         // into the Event object supplied.
         while (window.pollEvent(event))
         {
-            if (event.type == Event::KeyPressed)       // Deal with aKEY PRESSED Event
+            if (event.type == Event::KeyPressed)       // Deal with a KEY PRESSED Event
             {
                 if (event.key.code == Keyboard::Key::Up) {
                     // if top left corner of sprite is further down the y-axis than 60 (i.e. y>60), then
